@@ -26,4 +26,7 @@ public class Product {
 
     @Column(nullable = false)
     private Long price;
+
+    private String description;
+
 }

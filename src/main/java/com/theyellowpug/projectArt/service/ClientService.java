@@ -5,6 +5,7 @@ import com.theyellowpug.projectArt.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -14,5 +15,9 @@ public class ClientService {
 
     public List<Client> getAllClient() {
         return clientRepository.findAll();
+    }
+
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

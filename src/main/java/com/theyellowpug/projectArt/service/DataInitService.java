@@ -33,6 +33,8 @@ public class DataInitService implements CommandLineRunner {
                         .username("Holl Barna")
                         .email("hollbarna@gmail.com")
                         .password("csokiscsiga9")
+                        .shortDescription("Kis birtok nagy bitrok barniGvel nem bírtok.")
+                        .longDescription("A írtam egy dnb számot ilyen: clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare v clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
                         .build());
 
     }

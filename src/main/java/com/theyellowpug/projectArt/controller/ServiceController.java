@@ -1,9 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
-import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.entity.Service;
-import com.theyellowpug.projectArt.repository.ProductRepository;
-import com.theyellowpug.projectArt.service.ProductService;
 import com.theyellowpug.projectArt.service.ServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

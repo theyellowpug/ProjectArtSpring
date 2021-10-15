@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class ProfileController {
     private final ProfileService profileService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfileById(@PathVariable("id") Long id) {
+    @GetMapping("/")
+    public ResponseEntity<Profile> getProfileById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(profileService.getProfileById(id));
     }
 

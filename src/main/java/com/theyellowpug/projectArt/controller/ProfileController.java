@@ -17,4 +17,9 @@ public class ProfileController {
     public ResponseEntity<Profile> getProfileById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(profileService.getProfileById(id));
     }
+
+    @GetMapping("/allByClientId")
+    public ResponseEntity<Profile> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
+        return ResponseEntity.ok(profileService.getProfileByClientId(clientId));
+    }
 }

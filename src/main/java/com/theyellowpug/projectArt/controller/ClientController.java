@@ -3,6 +3,7 @@ package com.theyellowpug.projectArt.controller;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +17,13 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping("/all")
-    public List<Client> getAllClients() {
-        return clientService.getAllClient();
+    public ResponseEntity<List<Client>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAllClient());
     }
 
     @GetMapping("/{id}")
-    public Client getAllClients(@PathVariable("id") Long id) {
-        return clientService.getClientById(id);
+    public ResponseEntity<Client> getAllClients(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(clientService.getClientById(id));
     }
 
 }

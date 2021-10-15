@@ -2,6 +2,7 @@ package com.theyellowpug.projectArt.service;
 
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
+import com.theyellowpug.projectArt.entity.Profile;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,20 +38,26 @@ public class DataInitService implements CommandLineRunner {
         productListOfBarna.add(product1);
         productListOfBarna.add(product2);
 
+        Profile profileToBarna = Profile.builder()
+                .name("BarniG")
+                .title("Struggling DJ & CTO")
+                .shortDescription("Kis birtok nagy birtrok barniGvel nem birtok.")
+                .longDescription("A írtam egy dnb számot ilyen:clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
+                .build();
+
         Client barnaHoll = Client.builder()
                 .username("Holl Barna")
                 .email("hollbarna@gmail.com")
                 .password("csokiscsiga9")
-                .shortDescription("Kis birtok nagy bitrok barniGvel nem bírtok.")
-                .longDescription("A írtam egy dnb számot ilyen: clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
                 .products(productListOfBarna)
+                .profile(profileToBarna)
                 .build();
 
         product1.setClient(barnaHoll);
         product2.setClient(barnaHoll);
 
+        profileToBarna.setClient(barnaHoll);
+
         clientRepository.save(barnaHoll);
-
-
     }
 }

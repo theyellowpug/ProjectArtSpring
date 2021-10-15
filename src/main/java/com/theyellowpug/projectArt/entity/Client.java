@@ -27,14 +27,16 @@ public class Client {
     @Column(nullable = false)
     private String password;
 
-    private String shortDescription;
-
-    private String longDescription;
-
     @JsonManagedReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Product> products;
+
+    @JsonManagedReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Profile profile;
 
 }

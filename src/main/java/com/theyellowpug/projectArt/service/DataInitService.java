@@ -21,7 +21,8 @@ public class DataInitService implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        List<Product> productListOfBarna = new ArrayList<Product>();
+        List<Product> productListOfBarna = new ArrayList<>();
+        List<com.theyellowpug.projectArt.entity.Service> serviceListOfBarna = new ArrayList<>();
 
         Product product1 = Product.builder()
                 .name("test product 1")
@@ -38,6 +39,14 @@ public class DataInitService implements CommandLineRunner {
         productListOfBarna.add(product1);
         productListOfBarna.add(product2);
 
+        com.theyellowpug.projectArt.entity.Service service1 = com.theyellowpug.projectArt.entity.Service.builder()
+                .name("test service")
+                .price(1213L)
+                .description("description of test service")
+                .build();
+
+        serviceListOfBarna.add(service1);
+
         Profile profileToBarna = Profile.builder()
                 .name("BarniG")
                 .title("Struggling DJ & CTO")
@@ -45,16 +54,20 @@ public class DataInitService implements CommandLineRunner {
                 .longDescription("A írtam egy dnb számot ilyen:clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
                 .build();
 
+
         Client barnaHoll = Client.builder()
                 .username("Holl Barna")
                 .email("hollbarna@gmail.com")
                 .password("csokiscsiga9")
-                .products(productListOfBarna)
                 .profile(profileToBarna)
+                .products(productListOfBarna)
+                .services(serviceListOfBarna)
                 .build();
 
         product1.setClient(barnaHoll);
         product2.setClient(barnaHoll);
+
+        service1.setClient(barnaHoll);
 
         profileToBarna.setClient(barnaHoll);
 

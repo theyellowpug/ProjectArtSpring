@@ -2,9 +2,11 @@ package com.theyellowpug.projectArt.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.theyellowpug.projectArt.model.ProductType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +20,9 @@ public class Product {
     private Long id;
 
     @Column(nullable = false)
+    private ProductType productType;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -29,4 +34,11 @@ public class Product {
     @ToString.Exclude
     @ManyToOne()
     private Client client;
+
+    @JsonManagedReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
 }

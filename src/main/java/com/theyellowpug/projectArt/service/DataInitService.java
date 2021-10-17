@@ -1,8 +1,10 @@
 package com.theyellowpug.projectArt.service;
 
 import com.theyellowpug.projectArt.entity.Client;
+import com.theyellowpug.projectArt.entity.Comment;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.entity.Profile;
+import com.theyellowpug.projectArt.model.ProductType;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,30 +24,38 @@ public class DataInitService implements CommandLineRunner {
     public void run(String... args) {
 
         List<Product> productListOfBarna = new ArrayList<>();
-        List<com.theyellowpug.projectArt.entity.Service> serviceListOfBarna = new ArrayList<>();
+        List<Comment> commentListOfBarna = new ArrayList<>();
 
         Product product1 = Product.builder()
                 .name("test product 1")
+                .productType(ProductType.ITEM)
                 .price(2500L)
                 .description("description of test product1")
                 .build();
 
         Product product2 = Product.builder()
                 .name("test product 2")
+                .productType(ProductType.ITEM)
                 .price(10000L)
                 .description("description of test product2")
                 .build();
 
-        productListOfBarna.add(product1);
-        productListOfBarna.add(product2);
-
-        com.theyellowpug.projectArt.entity.Service service1 = com.theyellowpug.projectArt.entity.Service.builder()
+        Product product3 = Product.builder()
                 .name("test service")
-                .price(1213L)
+                .productType(ProductType.SERVICE)
+                .price(23990L)
                 .description("description of test service")
                 .build();
 
-        serviceListOfBarna.add(service1);
+        productListOfBarna.add(product1);
+        productListOfBarna.add(product2);
+        productListOfBarna.add(product3);
+
+        Comment comment1 = Comment.builder().text("első").product(product1).build();
+        Comment comment2 = Comment.builder().text("come to brazil").product(product3).build();
+
+        commentListOfBarna.add(comment1);
+        commentListOfBarna.add(comment2);
 
         Profile profileToBarna = Profile.builder()
                 .name("BarniG")
@@ -54,22 +64,22 @@ public class DataInitService implements CommandLineRunner {
                 .longDescription("A írtam egy dnb számot ilyen:clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
                 .build();
 
-
         Client barnaHoll = Client.builder()
                 .username("Holl Barna")
                 .email("hollbarna@gmail.com")
                 .password("csokiscsiga9")
                 .profile(profileToBarna)
                 .products(productListOfBarna)
-                .services(serviceListOfBarna)
+                .comments(commentListOfBarna)
                 .build();
 
         product1.setClient(barnaHoll);
         product2.setClient(barnaHoll);
 
-        service1.setClient(barnaHoll);
-
         profileToBarna.setClient(barnaHoll);
+
+        comment1.setOwner(barnaHoll);
+        comment2.setOwner(barnaHoll);
 
         clientRepository.save(barnaHoll);
     }

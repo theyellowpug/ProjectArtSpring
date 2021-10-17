@@ -39,11 +39,11 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Product> products;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Service> services;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
 
 }

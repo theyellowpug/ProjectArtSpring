@@ -1,6 +1,7 @@
 package com.theyellowpug.projectArt.controller;
 
 import com.theyellowpug.projectArt.entity.Product;
+import com.theyellowpug.projectArt.model.ProductModel;
 import com.theyellowpug.projectArt.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class ProductController {
     @GetMapping("/allByClientId")
     public ResponseEntity<List<Product>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
         return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
+    }
+
+    @PostMapping(name = "/", consumes = {"application/json"})
+    public ResponseEntity<String> createProduct(@RequestParam("clientId") Long clientId, @RequestBody ProductModel product) {
+        return ResponseEntity.ok(productService.createProduct(clientId, product));
     }
 }

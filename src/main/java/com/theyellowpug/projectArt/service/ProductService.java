@@ -38,6 +38,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(product.getPrice())
                 .description(product.getDescription())
+                .client(clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new))
                 .build();
 
         List<Product> products = client.getProducts();
@@ -47,5 +48,10 @@ public class ProductService {
         clientRepository.save(client);
 
         return "Product was successfully added to client: " + client.getUsername();
+    }
+
+    public String deleteProduct(Long id) {
+        productRepository.deleteById(id);
+        return "Product(with id:" + id + ") was successfully removed";
     }
 }

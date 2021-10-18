@@ -32,8 +32,13 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
     }
 
-    @PostMapping(name = "/", consumes = {"application/json"})
+    @PostMapping("/")
     public ResponseEntity<String> createProduct(@RequestParam("clientId") Long clientId, @RequestBody ProductModel product) {
         return ResponseEntity.ok(productService.createProduct(clientId, product));
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<String> deleteProduct(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(productService.deleteProduct(id));
     }
 }

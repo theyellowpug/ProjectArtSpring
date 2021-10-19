@@ -3,6 +3,7 @@ package com.theyellowpug.projectArt.service;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Comment;
 import com.theyellowpug.projectArt.entity.Product;
+import com.theyellowpug.projectArt.model.CommentModel;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.CommentRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,9 +26,20 @@ public class CommentService {
         return client.getComments();
     }
 
-    public List<Comment> getAllCommentByProductId(Long productId) {
+    public List<CommentModel> getAllCommentByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
-        return product.getComments();
+        List<Comment> comments = product.getComments();
+        List<CommentModel> commentModels = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentModels.add(CommentModel.builder()
+                    .id(comment.getId())
+                    .text(comment.getText())
+                    .ownerName(comment.getOwner().getProfile().getName())
+                    .ownerId(comment.getOwner().getProfile().getId())
+                    .build());
+        }
+
+        return commentModels;
     }
 
     public String createComment(Long clientId, Long productId, String text) {

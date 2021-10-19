@@ -1,35 +1,27 @@
-package com.theyellowpug.projectArt.entity;
+package com.theyellowpug.projectArt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.theyellowpug.projectArt.entity.Client;
+import com.theyellowpug.projectArt.entity.Product;
 import lombok.*;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Comment {
+public class CommentModel {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String text;
 
-    @JsonBackReference
-    @ToString.Exclude
-    @ManyToOne()
-    private Product product;
+    private String ownerName;
 
-    @JsonManagedReference
-    @ToString.Exclude
-    @ManyToOne()
-    private Client owner;
+    private Long ownerId;
 
 }

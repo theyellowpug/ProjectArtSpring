@@ -33,7 +33,7 @@ public class Client {
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Profile profile;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)

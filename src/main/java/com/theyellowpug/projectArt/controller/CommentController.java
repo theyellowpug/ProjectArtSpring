@@ -1,6 +1,7 @@
 package com.theyellowpug.projectArt.controller;
 
 import com.theyellowpug.projectArt.entity.Comment;
+import com.theyellowpug.projectArt.model.CommentModel;
 import com.theyellowpug.projectArt.model.ProductModel;
 import com.theyellowpug.projectArt.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class CommentController {
     }
 
     @GetMapping("/allByProductId")
-    public ResponseEntity<List<Comment>> getAllCommentsByProductId(@RequestParam("productId") Long productId) {
+    public ResponseEntity<List<CommentModel>> getAllCommentsByProductId(@RequestParam("productId") Long productId) {
         return ResponseEntity.ok(commentService.getAllCommentByProductId(productId));
     }
 

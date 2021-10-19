@@ -28,4 +28,19 @@ public class CommentService {
         Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
         return product.getComments();
     }
+
+    public String createComment(Long clientId, Long productId, String text) {
+        Client owner = clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new);
+        Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
+
+        Comment comment = Comment.builder()
+                .owner(owner)
+                .product(product)
+                .text(text)
+                .build();
+
+        commentRepository.save(comment);
+
+        return owner.getUsername() + " COMMENTED " + comment.getText() + " ON " + product.getName();
+    }
 }

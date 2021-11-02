@@ -72,8 +72,7 @@ public class DataInitService implements CommandLineRunner {
         Client barnaHoll = Client.builder()
                 .username("HollBarna")
                 .email("hollbarna@gmail.com")
-                .password("csokiscsiga9")
-                //.password(passwordEncoder.encode("csokiscsiga9"))
+                .password(passwordEncoder.encode("csokiscsiga9"))
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .profile(profileToBarna)
                 .products(productListOfBarna)
@@ -82,7 +81,7 @@ public class DataInitService implements CommandLineRunner {
 
         Client client = Client.builder()
                 .username("admin")
-                .password("admin")
+                .password(passwordEncoder.encode("admin"))
                 .email("admin")
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .build();

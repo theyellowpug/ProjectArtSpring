@@ -23,6 +23,8 @@ import java.util.*;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
+    private String secret="secret";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getServletPath().equals("/login") || request.getServletPath().equals("/client/refreshToken")) {
@@ -33,7 +35,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
 
-                    String secret = "secret"; // hide
                     Algorithm signingAlgorithm = Algorithm.HMAC512(secret.getBytes());
 
                     JWTVerifier jwtVerifier = JWT.require(signingAlgorithm).build();

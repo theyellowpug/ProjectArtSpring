@@ -43,7 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/client/refreshToken").permitAll()
-                .antMatchers(HttpMethod.GET, "/client/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/client/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/comment/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/comment/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/payment/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/product/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/product/**").hasRole("CLIENT")
+                .antMatchers(HttpMethod.GET, "/profile/**").authenticated()
                 .antMatchers("/swagger-ui.html",
                         "/v2/api-docs",
                         "/configuration/ui",

@@ -2,10 +2,13 @@ package com.theyellowpug.projectArt.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.theyellowpug.projectArt.model.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -27,6 +30,11 @@ public class Client {
     @Column(nullable = false)
     private String password;
 
+    @ElementCollection
+    @Singular
+    @NotEmpty
+    private Set<UserRole> roles;
+
     @JsonManagedReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -44,6 +52,5 @@ public class Client {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Comment> comments;
-
 
 }

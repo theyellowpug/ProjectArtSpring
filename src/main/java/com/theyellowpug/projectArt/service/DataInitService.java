@@ -5,20 +5,25 @@ import com.theyellowpug.projectArt.entity.Comment;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.entity.Profile;
 import com.theyellowpug.projectArt.model.ProductType;
+import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DataInitService implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
@@ -65,12 +70,20 @@ public class DataInitService implements CommandLineRunner {
                 .build();
 
         Client barnaHoll = Client.builder()
-                .username("Holl Barna")
+                .username("HollBarna")
                 .email("hollbarna@gmail.com")
-                .password("csokiscsiga9")
+                .password(passwordEncoder.encode("csokiscsiga9"))
+                .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .profile(profileToBarna)
                 .products(productListOfBarna)
                 .comments(commentListOfBarna)
+                .build();
+
+        Client client = Client.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("admin"))
+                .email("admin")
+                .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .build();
 
         product1.setClient(barnaHoll);
@@ -82,5 +95,6 @@ public class DataInitService implements CommandLineRunner {
         comment2.setOwner(barnaHoll);
 
         clientRepository.save(barnaHoll);
+        clientRepository.save(client);
     }
 }

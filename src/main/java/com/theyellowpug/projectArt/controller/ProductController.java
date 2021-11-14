@@ -2,6 +2,7 @@ package com.theyellowpug.projectArt.controller;
 
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.ProductModel;
+import com.theyellowpug.projectArt.model.ProductType;
 import com.theyellowpug.projectArt.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,15 @@ public class ProductController {
     @GetMapping("/")
     public ResponseEntity<Product> getProductById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+
+    @GetMapping("/byProductType")
+    public ResponseEntity<List<Product>> getProductsByProductType(@RequestParam("productType") ProductType productType,
+                                                                  @RequestParam("numberOfPages") Long numberOfPages,
+                                                                  @RequestParam("numberOfProducts") Long numberOfProducts
+    ) {
+
+        return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
     }
 
     @GetMapping("/allByClientId")

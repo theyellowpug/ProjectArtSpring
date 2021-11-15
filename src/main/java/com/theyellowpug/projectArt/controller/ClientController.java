@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theyellowpug.projectArt.entity.Client;
+import com.theyellowpug.projectArt.model.ClientRegistrationModel;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +38,15 @@ public class ClientController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Client> getAllClients(@RequestParam("id") Long id) {
+    public ResponseEntity<Client> getClientById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
+
+    @PostMapping("/")
+    public void createClient(@RequestBody ClientRegistrationModel clientRegistrationModel){
+        clientService.createClient(clientRegistrationModel);
+    }
+
 
     @GetMapping("/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.sql.Date;
 
 @Entity
 @AllArgsConstructor
@@ -18,7 +19,13 @@ public class Profile {
     @GeneratedValue
     private Long id;
 
-    private String name;
+    private String firstname;
+
+    private String lastname;
+
+    private String nickname;
+
+    private Date dateOfBirth;
 
     private String title;
 
@@ -30,5 +37,4 @@ public class Profile {
     @ToString.Exclude
     @OneToOne()
     private Client client;
-
 }

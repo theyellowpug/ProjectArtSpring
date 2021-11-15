@@ -63,6 +63,8 @@ public class ClientService implements UserDetailsService {
                 .profile(profile)
                 .build();
 
+        profile.setClient(client);
+
         clientRepository.save(client);
     }
 

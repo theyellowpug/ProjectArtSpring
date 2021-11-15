@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -44,22 +46,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/client/refreshToken").permitAll()
                 .antMatchers(HttpMethod.GET, "/client/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/client/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/comment/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/comment/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/payment/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/product/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/product/**").hasRole("CLIENT")
                 .antMatchers(HttpMethod.GET, "/profile/**").authenticated()
-                .antMatchers("/swagger-ui.html",
-                        "/v2/api-docs",
-                        "/configuration/ui",
+                .antMatchers("/v2/api-docs",
+                        "/swagger-resources",
                         "/swagger-resources/**",
+                        "/configuration/ui",
                         "/configuration/security",
-                        "/webjars/**").permitAll()
+                        "/swagger-ui.html",
+                        "/webjars/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**").permitAll()
                 .anyRequest().denyAll()
                 .and()
                 .addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+
     }
 
     @Bean

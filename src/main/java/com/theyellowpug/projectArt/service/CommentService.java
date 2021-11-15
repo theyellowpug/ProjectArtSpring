@@ -34,7 +34,7 @@ public class CommentService {
             commentModels.add(CommentModel.builder()
                     .id(comment.getId())
                     .text(comment.getText())
-                    .ownerName(comment.getOwner().getProfile().getName())
+                    .ownerName(comment.getOwner().getProfile().getNickname())
                     .ownerId(comment.getOwner().getProfile().getId())
                     .build());
         }

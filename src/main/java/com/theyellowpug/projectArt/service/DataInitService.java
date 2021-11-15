@@ -63,7 +63,7 @@ public class DataInitService implements CommandLineRunner {
         commentListOfBarna.add(comment2);
 
         Profile profileToBarna = Profile.builder()
-                .name("BarniG")
+                .nickname("BarniG")
                 .title("Struggling DJ & CTO")
                 .shortDescription("Kis birtok nagy birtrok barniGvel nem birtok.")
                 .longDescription("A írtam egy dnb számot ilyen:clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")

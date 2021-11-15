@@ -1,6 +1,9 @@
 package com.theyellowpug.projectArt.service;
 
 import com.theyellowpug.projectArt.entity.Client;
+import com.theyellowpug.projectArt.entity.Profile;
+import com.theyellowpug.projectArt.model.ClientRegistrationModel;
+import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +44,28 @@ public class ClientService implements UserDetailsService {
 
     public Client getClientById(Long id) {
         return clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public void createClient(ClientRegistrationModel clientRegistrationModel) {
+
+        Profile profile = Profile.builder()
+                .firstname(clientRegistrationModel.getFirstname())
+                .lastname(clientRegistrationModel.getLastname())
+                .nickname(clientRegistrationModel.getFirstname() + " " + clientRegistrationModel.getLastname())
+                .dateOfBirth(clientRegistrationModel.getDateOfBirth())
+                .build();
+
+        Client client = Client.builder()
+                .username(clientRegistrationModel.getUsername())
+                .email(clientRegistrationModel.getEmail())
+                .password(passwordEncoder.encode(clientRegistrationModel.getPassword()))
+                .role(UserRole.ROLE_CLIENT)
+                .profile(profile)
+                .build();
+
+        profile.setClient(client);
+
+        clientRepository.save(client);
     }
 
 }

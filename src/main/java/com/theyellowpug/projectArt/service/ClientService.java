@@ -65,7 +65,6 @@ public class ClientService implements UserDetailsService {
                 .build();
 
         profile.setClient(client);
-
         clientRepository.save(client);
     }
 
@@ -74,5 +73,9 @@ public class ClientService implements UserDetailsService {
         Set<UserRole> roles = client.getRoles();
         roles.add(userRole);
         clientRepository.save(client);
+    }
+
+    public void deleteClientById(Long id) {
+        clientRepository.deleteById(id);
     }
 }

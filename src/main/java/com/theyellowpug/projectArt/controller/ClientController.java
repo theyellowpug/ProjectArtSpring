@@ -53,6 +53,11 @@ public class ClientController {
         clientService.addRoleByClientId(id, userRole);
     }
 
+    @DeleteMapping("/")
+    public void deleteClientById(@RequestParam("id") Long id){
+        clientService.deleteClientById(id);
+    }
+
 
     @GetMapping("/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

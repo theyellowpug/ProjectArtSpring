@@ -51,9 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/client/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/comment/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/comment/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/payment/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/payment/**").hasRole("CLIENT")
                 .antMatchers(HttpMethod.GET, "/product/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/product/**").hasRole("CLIENT")
+                .antMatchers(HttpMethod.POST, "/product/**").permitAll()//.hasRole("ARTIST")
+                .antMatchers(HttpMethod.DELETE, "/product/**").permitAll()//.hasRole("ARTIST")
                 .antMatchers(HttpMethod.GET, "/profile/**").authenticated()
                 .antMatchers("/v2/api-docs",
                         "/swagger-resources",

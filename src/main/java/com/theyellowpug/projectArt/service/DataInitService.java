@@ -73,7 +73,7 @@ public class DataInitService implements CommandLineRunner {
                 .username("HollBarna")
                 .email("hollbarna@gmail.com")
                 .password(passwordEncoder.encode("csokiscsiga9"))
-                .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
+                .role(UserRole.ROLE_CLIENT)
                 .profile(profileToBarna)
                 .products(productListOfBarna)
                 .comments(commentListOfBarna)

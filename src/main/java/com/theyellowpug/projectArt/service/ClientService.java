@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -64,8 +65,17 @@ public class ClientService implements UserDetailsService {
                 .build();
 
         profile.setClient(client);
-
         clientRepository.save(client);
     }
 
+    public void addRoleByClientId(Long id, UserRole userRole) {
+        Client client = clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Set<UserRole> roles = client.getRoles();
+        roles.add(userRole);
+        clientRepository.save(client);
+    }
+
+    public void deleteClientById(Long id) {
+        clientRepository.deleteById(id);
+    }
 }

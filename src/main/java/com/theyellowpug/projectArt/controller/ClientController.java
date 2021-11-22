@@ -54,7 +54,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/")
-    public void deleteClientById(@RequestParam("id") Long id){
+    public void deleteClientById(@RequestParam("id") Long id) {
         clientService.deleteClientById(id);
     }
 
@@ -72,11 +72,11 @@ public class ClientController {
                 JWTVerifier jwtVerifier = JWT.require(signingAlgorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
 
-                String username = decodedJWT.getSubject();
-                Client client = clientRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
+                String email = decodedJWT.getSubject();
+                Client client = clientRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
 
                 String access_token = JWT.create()
-                        .withSubject(client.getUsername())
+                        .withSubject(client.getEmail())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", client.getRoles().stream().map(userRole -> userRole.toString()).collect(Collectors.toList()))

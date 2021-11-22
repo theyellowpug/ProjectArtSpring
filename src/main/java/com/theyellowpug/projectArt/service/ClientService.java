@@ -30,13 +30,13 @@ public class ClientService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Client client = clientRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Client client = clientRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         client.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
 
-        return new User(client.getUsername(), client.getPassword(), authorities);
+        return new User(client.getEmail(), client.getPassword(), authorities);
     }
 
     public List<Client> getAllClient() {
@@ -57,7 +57,6 @@ public class ClientService implements UserDetailsService {
                 .build();
 
         Client client = Client.builder()
-                .username(clientRegistrationModel.getUsername())
                 .email(clientRegistrationModel.getEmail())
                 .password(passwordEncoder.encode(clientRegistrationModel.getPassword()))
                 .role(UserRole.ROLE_CLIENT)

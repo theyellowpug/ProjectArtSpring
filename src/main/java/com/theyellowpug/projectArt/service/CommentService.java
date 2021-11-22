@@ -54,6 +54,6 @@ public class CommentService {
 
         commentRepository.save(comment);
 
-        return owner.getUsername() + " COMMENTED " + comment.getText() + " ON " + product.getName();
+        return owner.getEmail() + " COMMENTED " + comment.getText() + " ON " + product.getName();
     }
 }

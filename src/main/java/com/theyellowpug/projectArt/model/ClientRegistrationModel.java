@@ -14,8 +14,6 @@ import java.sql.Date;
 @Data
 public class ClientRegistrationModel {
 
-    private String username;
-
     private String email;
 
     private String password;

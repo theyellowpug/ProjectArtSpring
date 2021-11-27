@@ -1,4 +1,4 @@
-package com.theyellowpug.projectArt.model;
+package com.theyellowpug.projectArt.dTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 @Data
-public class ClientRegistrationModel {
+public class ClientRegistrationDTO {
 
     private String email;
 

@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theyellowpug.projectArt.entity.Client;
-import com.theyellowpug.projectArt.model.ClientRegistrationModel;
+import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
 import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.service.ClientService;
@@ -44,8 +44,8 @@ public class ClientController {
     }
 
     @PostMapping("/")
-    public void createClient(@RequestBody ClientRegistrationModel clientRegistrationModel) {
-        clientService.createClient(clientRegistrationModel);
+    public void createClient(@RequestBody ClientRegistrationDTO clientRegistrationDTO) {
+        clientService.createClient(clientRegistrationDTO);
     }
 
     @PutMapping("/addRoleByClientId")

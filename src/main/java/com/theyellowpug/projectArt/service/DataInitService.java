@@ -82,7 +82,7 @@ public class DataInitService implements CommandLineRunner {
 
         Client client = Client.builder()
                 .password(passwordEncoder.encode("admin"))
-                .email("admin")
+                .email("admin@admin.com")
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .build();
 

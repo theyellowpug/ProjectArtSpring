@@ -2,7 +2,7 @@ package com.theyellowpug.projectArt.service;
 
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Profile;
-import com.theyellowpug.projectArt.model.ClientRegistrationModel;
+import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
 import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,18 +47,18 @@ public class ClientService implements UserDetailsService {
         return clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public void createClient(ClientRegistrationModel clientRegistrationModel) {
+    public void createClient(ClientRegistrationDTO clientRegistrationDTO) {
 
         Profile profile = Profile.builder()
-                .firstname(clientRegistrationModel.getFirstname())
-                .lastname(clientRegistrationModel.getLastname())
-                .nickname(clientRegistrationModel.getFirstname() + " " + clientRegistrationModel.getLastname())
-                .dateOfBirth(clientRegistrationModel.getDateOfBirth())
+                .firstname(clientRegistrationDTO.getFirstname())
+                .lastname(clientRegistrationDTO.getLastname())
+                .nickname(clientRegistrationDTO.getFirstname() + " " + clientRegistrationDTO.getLastname())
+                .dateOfBirth(clientRegistrationDTO.getDateOfBirth())
                 .build();
 
         Client client = Client.builder()
-                .email(clientRegistrationModel.getEmail())
-                .password(passwordEncoder.encode(clientRegistrationModel.getPassword()))
+                .email(clientRegistrationDTO.getEmail())
+                .password(passwordEncoder.encode(clientRegistrationDTO.getPassword()))
                 .role(UserRole.ROLE_CLIENT)
                 .profile(profile)
                 .build();

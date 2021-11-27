@@ -1,14 +1,9 @@
 package com.theyellowpug.projectArt.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.theyellowpug.projectArt.entity.Client;
-import com.theyellowpug.projectArt.entity.Product;
-import lombok.*;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

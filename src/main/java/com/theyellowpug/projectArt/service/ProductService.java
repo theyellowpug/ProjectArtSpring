@@ -35,7 +35,7 @@ public class ProductService {
 
     public List<Product> getProductsByProductType(ProductType productType, Long numberOfPages, Long numberOfProducts) {
         Pageable pageable = PageRequest.of(numberOfPages.intValue(), numberOfProducts.intValue());
-        return productRepository.findAllByProductType(productType,pageable);
+        return productRepository.findAllByProductType(productType, pageable);
     }
 
     public String createProduct(Long clientId, ProductModel product) {
@@ -55,7 +55,7 @@ public class ProductService {
         client.setProducts(products);
         clientRepository.save(client);
 
-        return "Product was successfully added to client: " + client.getUsername();
+        return "Product was successfully added to client: " + client.getEmail();
     }
 
     public String deleteProduct(Long id) {

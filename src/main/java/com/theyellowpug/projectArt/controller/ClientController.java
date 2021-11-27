@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theyellowpug.projectArt.entity.Client;
-import com.theyellowpug.projectArt.model.ClientRegistrationModel;
+import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
 import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.service.ClientService;
@@ -44,8 +44,8 @@ public class ClientController {
     }
 
     @PostMapping("/")
-    public void createClient(@RequestBody ClientRegistrationModel clientRegistrationModel) {
-        clientService.createClient(clientRegistrationModel);
+    public void createClient(@RequestBody ClientRegistrationDTO clientRegistrationDTO) {
+        clientService.createClient(clientRegistrationDTO);
     }
 
     @PutMapping("/addRoleByClientId")
@@ -54,7 +54,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/")
-    public void deleteClientById(@RequestParam("id") Long id){
+    public void deleteClientById(@RequestParam("id") Long id) {
         clientService.deleteClientById(id);
     }
 
@@ -72,11 +72,11 @@ public class ClientController {
                 JWTVerifier jwtVerifier = JWT.require(signingAlgorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);
 
-                String username = decodedJWT.getSubject();
-                Client client = clientRepository.findByUsername(username).orElseThrow(EntityNotFoundException::new);
+                String email = decodedJWT.getSubject();
+                Client client = clientRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
 
                 String access_token = JWT.create()
-                        .withSubject(client.getUsername())
+                        .withSubject(client.getEmail())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", client.getRoles().stream().map(userRole -> userRole.toString()).collect(Collectors.toList()))

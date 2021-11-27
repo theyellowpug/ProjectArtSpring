@@ -63,6 +63,8 @@ public class DataInitService implements CommandLineRunner {
         commentListOfBarna.add(comment2);
 
         Profile profileToBarna = Profile.builder()
+                .firstname("Barna")
+                .lastname("Holl")
                 .nickname("BarniG")
                 .title("Struggling DJ & CTO")
                 .shortDescription("Kis birtok nagy birtrok barniGvel nem birtok.")
@@ -70,7 +72,6 @@ public class DataInitService implements CommandLineRunner {
                 .build();
 
         Client barnaHoll = Client.builder()
-                .username("HollBarna")
                 .email("hollbarna@gmail.com")
                 .password(passwordEncoder.encode("csokiscsiga9"))
                 .role(UserRole.ROLE_CLIENT)
@@ -80,9 +81,8 @@ public class DataInitService implements CommandLineRunner {
                 .build();
 
         Client client = Client.builder()
-                .username("admin")
                 .password(passwordEncoder.encode("admin"))
-                .email("admin")
+                .email("admin@admin.com")
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .build();
 

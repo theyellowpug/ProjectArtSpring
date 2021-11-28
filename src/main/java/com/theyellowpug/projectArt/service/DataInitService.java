@@ -11,9 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,14 +26,35 @@ public class DataInitService implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        productTagRepository.saveAndFlush(ProductTag.builder().name("aaaa").build());
+        productTagRepository.saveAndFlush(ProductTag.builder().name("abab").build());
+        productTagRepository.saveAndFlush(ProductTag.builder().name("abba").build());
+
         List<Product> productListOfBarna = new ArrayList<>();
         List<Comment> commentListOfBarna = new ArrayList<>();
+        List<ProductTag> productTagList = new ArrayList<>();
+        List<ProductTag> productTagList2 = new ArrayList<>();
+
+        productTagList.add(productTagRepository.findByName("aaaa").orElseThrow(EntityNotFoundException::new));
+        productTagList.add(productTagRepository.findByName("abab").orElseThrow(EntityNotFoundException::new));
+        productTagList2.add(productTagRepository.findByName("aaaa").orElseThrow(EntityNotFoundException::new));
+        productTagList2.add(productTagRepository.findByName("abba").orElseThrow(EntityNotFoundException::new));
+
+        Product product4 = Product.builder()
+                .productType(ProductType.SERVICE)
+                .name("Tag test")
+                .price(9800L)
+                .productTags(productTagList)
+                .build();
+        productRepository.save(product4);
+
 
         Product product1 = Product.builder()
                 .name("test product 1")
                 .productType(ProductType.ITEM)
                 .price(2500L)
                 .description("description of test product1")
+                .productTags(productTagList)
                 .build();
 
         Product product2 = Product.builder()
@@ -42,6 +62,7 @@ public class DataInitService implements CommandLineRunner {
                 .productType(ProductType.ITEM)
                 .price(10000L)
                 .description("description of test product2")
+                .productTags(productTagList2)
                 .build();
 
         Product product3 = Product.builder()
@@ -49,6 +70,7 @@ public class DataInitService implements CommandLineRunner {
                 .productType(ProductType.SERVICE)
                 .price(23990L)
                 .description("description of test service")
+                .productTags(productTagList2)
                 .build();
 
         productListOfBarna.add(product1);
@@ -85,6 +107,8 @@ public class DataInitService implements CommandLineRunner {
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
                 .build();
 
+        List<ProductTag> productTags = new ArrayList<>(productTagRepository.findAll());
+
         product1.setClient(barnaHoll);
         product2.setClient(barnaHoll);
 
@@ -96,9 +120,5 @@ public class DataInitService implements CommandLineRunner {
         clientRepository.save(barnaHoll);
         clientRepository.save(client);
 
-        productTagRepository.save(ProductTag.builder().name("aaaa").build());
-        productTagRepository.save(ProductTag.builder().name("abab").build());
-        productTagRepository.save(ProductTag.builder().name("abba").build());
-        productTagRepository.save(ProductTag.builder().name("bbbb").build());
     }
 }

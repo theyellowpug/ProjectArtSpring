@@ -21,8 +21,13 @@ public class ProductTagController {
         return ResponseEntity.ok(productTagService.getAllProductTags());
     }
 
-    @GetMapping("/byName")
-    public ResponseEntity<List<ProductTag>> getProductTagsByName(@RequestParam("name") String name) {
-        return ResponseEntity.ok(productTagService.getProductTagsByName(name));
+    @GetMapping("/byNameStartsWith")
+    public ResponseEntity<List<ProductTag>> getProductTagsByNameStartsWith(@RequestParam("name") String name) {
+        return ResponseEntity.ok(productTagService.getProductTagsByNameStartsWith(name));
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<String> createProductTag(@RequestParam("name") String name) {
+        return ResponseEntity.ok(productTagService.createProductTag(name));
     }
 }

@@ -33,7 +33,6 @@ public class ProductController {
                                                                   @RequestParam("numberOfPages") Long numberOfPages,
                                                                   @RequestParam("numberOfProducts") Long numberOfProducts
     ) {
-
         return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
     }
 

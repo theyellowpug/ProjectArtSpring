@@ -1,13 +1,10 @@
 package com.theyellowpug.projectArt.controller;
 
 import com.theyellowpug.projectArt.entity.ProductTag;
-import com.theyellowpug.projectArt.service.ProductTagServices;
+import com.theyellowpug.projectArt.service.ProductTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,10 +14,15 @@ import java.util.List;
 @RequestMapping("/productTag")
 public class ProductTagController {
 
-    private final ProductTagServices productTagServices;
+    private final ProductTagService productTagService;
 
     @GetMapping("/all")
     public ResponseEntity<List<ProductTag>> getAllProductTags() {
-        return ResponseEntity.ok(productTagServices.getAllProductTags());
+        return ResponseEntity.ok(productTagService.getAllProductTags());
+    }
+
+    @GetMapping("/byName")
+    public ResponseEntity<List<ProductTag>> getProductTagsByName(@RequestParam("name") String name) {
+        return ResponseEntity.ok(productTagService.getProductTagsByName(name));
     }
 }

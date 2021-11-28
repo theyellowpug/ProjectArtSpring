@@ -9,11 +9,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductTagServices {
+public class ProductTagService {
 
     private final ProductTagRepository productTagRepository;
 
-    public List<ProductTag> getAllProductTags(){
+    public List<ProductTag> getAllProductTags() {
         return productTagRepository.findAll();
+    }
+
+    public List<ProductTag> getProductTagsByName(String name) {
+        return productTagRepository.findAllByNameStartsWith(name);
     }
 }

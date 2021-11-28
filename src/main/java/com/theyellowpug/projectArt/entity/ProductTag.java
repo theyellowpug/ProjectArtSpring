@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,6 +22,6 @@ public class ProductTag {
 
     @JsonBackReference
     @ToString.Exclude
-    @ManyToOne()
-    private Product product;
+    @ManyToMany()
+    private List<Product> products;
 }

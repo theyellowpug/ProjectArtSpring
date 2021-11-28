@@ -44,7 +44,7 @@ public class Product {
     @JsonManagedReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "products")
     private List<ProductTag> productTags;
 
 }

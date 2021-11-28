@@ -1,13 +1,11 @@
 package com.theyellowpug.projectArt.service;
 
-import com.theyellowpug.projectArt.entity.Client;
-import com.theyellowpug.projectArt.entity.Comment;
-import com.theyellowpug.projectArt.entity.Product;
-import com.theyellowpug.projectArt.entity.Profile;
+import com.theyellowpug.projectArt.entity.*;
 import com.theyellowpug.projectArt.model.ProductType;
 import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
+import com.theyellowpug.projectArt.repository.ProductTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +21,7 @@ import java.util.stream.Collectors;
 public class DataInitService implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final ClientRepository clientRepository;
+    private final ProductTagRepository productTagRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -96,5 +95,10 @@ public class DataInitService implements CommandLineRunner {
 
         clientRepository.save(barnaHoll);
         clientRepository.save(client);
+
+        productTagRepository.save(ProductTag.builder().name("aaaa").build());
+        productTagRepository.save(ProductTag.builder().name("abab").build());
+        productTagRepository.save(ProductTag.builder().name("abba").build());
+        productTagRepository.save(ProductTag.builder().name("bbbb").build());
     }
 }

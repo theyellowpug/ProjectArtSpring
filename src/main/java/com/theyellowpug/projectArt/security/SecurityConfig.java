@@ -56,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/product/**").permitAll()//.hasRole("ARTIST")
                 .antMatchers(HttpMethod.DELETE, "/product/**").permitAll()//.hasRole("ARTIST")
                 .antMatchers(HttpMethod.GET, "/profile/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/productTag/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/productTag/**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",

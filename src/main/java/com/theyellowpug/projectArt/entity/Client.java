@@ -27,6 +27,8 @@ public class Client {
     @Column(nullable = false)
     private String password;
 
+    private Boolean isArtist;
+
     @ElementCollection
     @Singular
     @NotEmpty

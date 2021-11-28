@@ -53,6 +53,11 @@ public class ClientController {
         clientService.addRoleByClientId(id, userRole);
     }
 
+    @PutMapping("/setIsArtist")
+    public ResponseEntity<String> setIsArtist(@RequestParam("id") Long id, @RequestParam("isArtist") Boolean isArtist) {
+        return ResponseEntity.ok(clientService.setIsArtist(id, isArtist));
+    }
+
     @DeleteMapping("/")
     public void deleteClientById(@RequestParam("id") Long id) {
         clientService.deleteClientById(id);

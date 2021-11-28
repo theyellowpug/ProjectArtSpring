@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
+import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.ProductModel;
 import com.theyellowpug.projectArt.model.ProductType;
@@ -34,6 +35,11 @@ public class ProductController {
                                                                   @RequestParam("numberOfProducts") Long numberOfProducts
     ) {
         return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
+    }
+
+    @PostMapping("/getAllByProductTags")
+    public ResponseEntity<List<Product>> getAllByProductTypeAndProductTags(@RequestParam("productType") ProductType productType, @RequestBody ProductTagNamesDTO productTagNames) {
+        return ResponseEntity.ok(productService.getAllByProductTypeAndProductTags(productType, productTagNames));
     }
 
     @GetMapping("/allByClientId")

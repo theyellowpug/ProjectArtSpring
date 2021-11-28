@@ -1,23 +1,29 @@
 package com.theyellowpug.projectArt.service;
 
+import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.ProductModel;
 import com.theyellowpug.projectArt.model.ProductType;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
+import com.theyellowpug.projectArt.repository.ProductTagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductTagRepository productTagRepository;
     private final ClientRepository clientRepository;
 
     public List<Product> getAllProducts() {
@@ -61,5 +67,12 @@ public class ProductService {
     public String deleteProduct(Long id) {
         productRepository.deleteById(id);
         return "Product(with id:" + id + ") was successfully removed";
+    }
+
+    public List<Product> getAllByProductTypeAndProductTags(ProductType productType, ProductTagNamesDTO productTagNames) {
+        Set<Product> products = new HashSet<>();
+
+        productTagNames.getNames().forEach(name -> products.addAll(productRepository.findAllByProductTypeAndProductTags(productType, productTagRepository.findByName(name).orElseThrow(EntityNotFoundException::new))));
+        return new ArrayList<>(products);
     }
 }

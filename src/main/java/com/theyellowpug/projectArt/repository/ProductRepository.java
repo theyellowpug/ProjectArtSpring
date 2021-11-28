@@ -12,5 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByProductType(ProductType productType, Pageable pageable);
 
+    List<Product> findAllByProductTypeAndNameContains(ProductType productType, String name);
+
     List<Product> findAllByProductTypeAndProductTags(ProductType productType, ProductTag productTag);
 }

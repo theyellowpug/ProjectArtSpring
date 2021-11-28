@@ -29,6 +29,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
+    @GetMapping("/allByClientId")
+    public ResponseEntity<List<Product>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
+        return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
+    }
+
     @GetMapping("/byProductType")
     public ResponseEntity<List<Product>> getProductsByProductType(@RequestParam("productType") ProductType productType,
                                                                   @RequestParam("numberOfPages") Long numberOfPages,
@@ -37,14 +42,14 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
     }
 
-    @PostMapping("/getAllByProductTags")
-    public ResponseEntity<List<Product>> getAllByProductTypeAndProductTags(@RequestParam("productType") ProductType productType, @RequestBody ProductTagNamesDTO productTagNames) {
-        return ResponseEntity.ok(productService.getAllByProductTypeAndProductTags(productType, productTagNames));
+    @GetMapping("/getAllByProductTypeAndNameContains")
+    public ResponseEntity<List<Product>> getAllByProductTypeAndNameContains(@RequestParam("productType") ProductType productType, @RequestParam("name") String name) {
+        return ResponseEntity.ok(productService.getAllByProductTypeAndNameContains(productType, name));
     }
 
-    @GetMapping("/allByClientId")
-    public ResponseEntity<List<Product>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
-        return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
+    @PostMapping("/getAllByProductTypeAndProductTags")
+    public ResponseEntity<List<Product>> getAllByProductTypeAndProductTags(@RequestParam("productType") ProductType productType, @RequestBody ProductTagNamesDTO productTagNames) {
+        return ResponseEntity.ok(productService.getAllByProductTypeAndProductTags(productType, productTagNames));
     }
 
     @PostMapping("/")

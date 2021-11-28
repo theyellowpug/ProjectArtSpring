@@ -75,4 +75,8 @@ public class ProductService {
         productTagNames.getNames().forEach(name -> products.addAll(productRepository.findAllByProductTypeAndProductTags(productType, productTagRepository.findByName(name).orElseThrow(EntityNotFoundException::new))));
         return new ArrayList<>(products);
     }
+
+    public List<Product> getAllByProductTypeAndNameContains(ProductType productType, String name) {
+        return productRepository.findAllByProductTypeAndNameContains(productType, name);
+    }
 }

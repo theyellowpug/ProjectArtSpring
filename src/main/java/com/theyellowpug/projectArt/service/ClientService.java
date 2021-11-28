@@ -60,6 +60,7 @@ public class ClientService implements UserDetailsService {
                 .email(clientRegistrationDTO.getEmail())
                 .password(passwordEncoder.encode(clientRegistrationDTO.getPassword()))
                 .role(UserRole.ROLE_CLIENT)
+                .isArtist(false)
                 .profile(profile)
                 .build();
 
@@ -76,5 +77,12 @@ public class ClientService implements UserDetailsService {
 
     public void deleteClientById(Long id) {
         clientRepository.deleteById(id);
+    }
+
+    public String setIsArtist(Long clientId, Boolean isArtist) {
+        Client client = clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new);
+        client.setIsArtist(isArtist);
+        clientRepository.save(client);
+        return "isArtist set to " + isArtist + " in client with id:" + clientId;
     }
 }

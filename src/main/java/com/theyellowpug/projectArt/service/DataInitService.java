@@ -96,6 +96,7 @@ public class DataInitService implements CommandLineRunner {
                 .email("hollbarna@gmail.com")
                 .password(passwordEncoder.encode("csokiscsiga9"))
                 .role(UserRole.ROLE_CLIENT)
+                .isArtist(false)
                 .profile(profileToBarna)
                 .products(productListOfBarna)
                 .comments(commentListOfBarna)
@@ -105,9 +106,8 @@ public class DataInitService implements CommandLineRunner {
                 .password(passwordEncoder.encode("admin"))
                 .email("admin@admin.com")
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
+                .isArtist(true)
                 .build();
-
-        List<ProductTag> productTags = new ArrayList<>(productTagRepository.findAll());
 
         product1.setClient(barnaHoll);
         product2.setClient(barnaHoll);

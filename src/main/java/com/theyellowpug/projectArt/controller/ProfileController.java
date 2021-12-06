@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -21,5 +23,10 @@ public class ProfileController {
     @GetMapping("/byClientId")
     public ResponseEntity<Profile> getProfileClientId(@RequestParam("clientId") Long clientId) {
         return ResponseEntity.ok(profileService.getProfileByClientId(clientId));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Profile>> getAllProfiles(){
+        return ResponseEntity.ok(profileService.getAllProfiles());
     }
 }

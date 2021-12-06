@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +24,9 @@ public class ProfileService {
     public Profile getProfileByClientId(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return client.getProfile();
+    }
+
+    public List<Profile> getAllProfiles() {
+        return profileRepository.findAll();
     }
 }

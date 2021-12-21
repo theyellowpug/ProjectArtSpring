@@ -47,6 +47,5 @@ public class ProfileService {
                 .collect(Collectors.toList());
 
         return profileCardDTOS;
-
     }
 }

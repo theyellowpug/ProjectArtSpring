@@ -92,6 +92,15 @@ public class DataInitService implements CommandLineRunner {
                 .longDescription("A írtam egy dnb számot ilyen:clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare clap snare clap clap snare snare snare snare snare")
                 .build();
 
+        Profile profileToAdmin = Profile.builder()
+                .firstname("Admin")
+                .lastname("Admin")
+                .nickname("Admin")
+                .title("Admin")
+                .shortDescription("Admin")
+                .longDescription("Admin")
+                .build();
+
         Client barnaHoll = Client.builder()
                 .email("hollbarna@gmail.com")
                 .password(passwordEncoder.encode("csokiscsiga9"))
@@ -106,6 +115,7 @@ public class DataInitService implements CommandLineRunner {
                 .password(passwordEncoder.encode("admin"))
                 .email("admin@admin.com")
                 .roles(Arrays.stream(UserRole.values()).collect(Collectors.toSet()))
+                .profile(profileToAdmin)
                 .isArtist(true)
                 .build();
 
@@ -113,6 +123,7 @@ public class DataInitService implements CommandLineRunner {
         product2.setClient(barnaHoll);
 
         profileToBarna.setClient(barnaHoll);
+        profileToAdmin.setClient(client);
 
         comment1.setOwner(barnaHoll);
         comment2.setOwner(barnaHoll);

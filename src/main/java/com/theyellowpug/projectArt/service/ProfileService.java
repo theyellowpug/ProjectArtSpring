@@ -27,8 +27,6 @@ public class ProfileService {
 
     public Profile getProfileByClientId(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        System.out.println("client:" + client);
-        System.out.println("client's profile:" + client.getProfile());
         return client.getProfile();
     }
 

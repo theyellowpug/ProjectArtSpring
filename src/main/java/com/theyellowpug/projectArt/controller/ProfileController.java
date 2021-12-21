@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
+import com.theyellowpug.projectArt.dTO.ProfileCardDTO;
 import com.theyellowpug.projectArt.entity.Profile;
 import com.theyellowpug.projectArt.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,9 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.getProfileByClientId(clientId));
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Profile>> getAllProfiles(){
-        return ResponseEntity.ok(profileService.getAllProfiles());
+    @GetMapping("/profileCard")
+    public ResponseEntity<List<ProfileCardDTO>> getProfileCards(@RequestParam("numberOfPages") Long numberOfPages,
+                                                                @RequestParam("numberOfProfiles") Long numberOfProfiles) {
+        return ResponseEntity.ok(profileService.getProfileCards(numberOfPages, numberOfProfiles));
     }
 }

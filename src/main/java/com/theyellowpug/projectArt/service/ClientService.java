@@ -47,6 +47,11 @@ public class ClientService implements UserDetailsService {
         return clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
+    public Long getClientIdByEmail(String email) {
+        Client client = clientRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+        return client.getId();
+    }
+
     public void createClient(ClientRegistrationDTO clientRegistrationDTO) {
 
         Profile profile = Profile.builder()
@@ -85,4 +90,5 @@ public class ClientService implements UserDetailsService {
         clientRepository.save(client);
         return "isArtist set to " + isArtist + " in client with id:" + clientId;
     }
+
 }

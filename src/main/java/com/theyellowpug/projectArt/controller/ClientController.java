@@ -43,6 +43,11 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
 
+    @GetMapping("/clientIdByEmail")
+    public ResponseEntity<Long> getClientIdByEmail(@RequestParam("email") String email) {
+        return ResponseEntity.ok(clientService.getClientIdByEmail(email));
+    }
+
     @PostMapping("/")
     public void createClient(@RequestBody ClientRegistrationDTO clientRegistrationDTO) {
         clientService.createClient(clientRegistrationDTO);

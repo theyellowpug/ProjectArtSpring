@@ -5,6 +5,7 @@ import com.theyellowpug.projectArt.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -26,5 +27,7 @@ public class TransactionService {
         return transactionRepository.findAllByArtistId(artistId);
     }
 
-
+    public Transaction getTransactionById(Long id) {
+        return transactionRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
 }

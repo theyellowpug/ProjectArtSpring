@@ -22,7 +22,7 @@ public class Transaction {
 
     private Long artistId;
 
-    private Long clientId;
+    private Long customerId;
 
     private Long amount;
 

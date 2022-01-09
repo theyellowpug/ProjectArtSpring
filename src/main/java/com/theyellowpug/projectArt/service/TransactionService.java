@@ -5,6 +5,8 @@ import com.theyellowpug.projectArt.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -15,4 +17,14 @@ public class TransactionService {
         transactionRepository.save(transaction);
         return "Transaction: " + transaction + " successfully created";
     }
+
+    public List<Transaction> getAllTransactionsByCustomerId(Long customerId) {
+        return transactionRepository.findAllByCustomerId(customerId);
+    }
+
+    public List<Transaction> getAllTransactionsByArtistId(Long artistId) {
+        return transactionRepository.findAllByArtistId(artistId);
+    }
+
+
 }

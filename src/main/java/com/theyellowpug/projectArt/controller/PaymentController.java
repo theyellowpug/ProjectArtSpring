@@ -20,4 +20,9 @@ public class PaymentController {
         return paymentService.createPaymentIntent(paymentData);
     }
 
+    @PostMapping("/create-payment-intent-with-customerId")
+    public CreatePaymentResponse createPaymentIntentWithUserId(@RequestBody PaymentData paymentData, @RequestParam("customerId") Long customerId) throws StripeException {
+        return paymentService.createPaymentIntentWithUserId(paymentData, customerId);
+    }
+
 }

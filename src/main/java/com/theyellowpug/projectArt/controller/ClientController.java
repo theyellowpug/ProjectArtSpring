@@ -48,6 +48,11 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getClientIdByEmail(email));
     }
 
+    @GetMapping("/isArtist")
+    public ResponseEntity<Boolean> getIfClientIsArtist(@RequestParam("id") Long id){
+        return ResponseEntity.ok(clientService.getIfClientIsArtist(id));
+    }
+
     @PostMapping("/")
     public void createClient(@RequestBody ClientRegistrationDTO clientRegistrationDTO) {
         clientService.createClient(clientRegistrationDTO);

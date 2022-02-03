@@ -7,6 +7,7 @@ import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -50,6 +52,14 @@ public class ClientService implements UserDetailsService {
     public Long getClientIdByEmail(String email) {
         Client client = clientRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
         return client.getId();
+    }
+
+    public Boolean getIfClientIsArtist(Long id) {
+        Optional<Client> c = clientRepository.findById(id);
+        try{
+            return c.get().getIsArtist();
+        }catch (Exception x){ return false; }
+
     }
 
     public void createClient(ClientRegistrationDTO clientRegistrationDTO) {

@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.entity;
 
+import com.theyellowpug.projectArt.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +16,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @Builder
 @Data
-public class Transaction {
+public class Order {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String paymentIntentId;
+    private Transaction transaction;
 
     private Long artistId;
 
@@ -28,9 +29,9 @@ public class Transaction {
 
     private Long amount;
 
-    private String status;
-
     private Long productId;
+
+    private OrderStatus status;
 
     private Date date;
 }

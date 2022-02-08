@@ -17,7 +17,5 @@ public class PaymentData {
 
     private String paymentIntentStatus;
 
-    private List<Long> productIds;
-
     private Date date;
 }

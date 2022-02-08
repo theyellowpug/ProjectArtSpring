@@ -4,16 +4,15 @@ import com.theyellowpug.projectArt.entity.Cart;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.repository.CartRepository;
+import com.theyellowpug.projectArt.repository.CartHistoryRepository;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Time;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,6 +21,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+    private final CartHistoryRepository cartHistoryRepository;
 
     public Cart getCartByClientId(Long clientId) {
         Client client = clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new);
@@ -41,7 +41,19 @@ public class CartService {
         cartRepository.save(cart);
 
         return product.getName() + " added to " + client.getEmail() + "'s cart";
+    }
 
+    public String emptyCartByClientId(Long clientId) {
+        Cart cart = getCartByClientId(clientId);
+        cart.setProductIds(Collections.emptyList());
+        cartRepository.save(cart);
+        return "Cart: " + cart + " is empty";
+    }
+
+    public String createCartHistoryByClientId(Long clientId) {
+        Cart cart = getCartByClientId(clientId);
+        cartHistoryRepository.save(cart);
+        return "Cart: " + cart + " saved to CartHistory";
     }
 
 

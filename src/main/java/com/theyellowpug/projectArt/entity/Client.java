@@ -52,4 +52,10 @@ public class Client {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    @JsonManagedReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Cart cart;
+
 }

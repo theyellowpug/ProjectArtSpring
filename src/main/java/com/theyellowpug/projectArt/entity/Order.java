@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-    private Transaction transaction;
+    private Long transactionId;
 
     private Long artistId;
 

@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.service;
 
+import com.theyellowpug.projectArt.entity.Cart;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Profile;
 import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
@@ -71,15 +72,19 @@ public class ClientService implements UserDetailsService {
                 .dateOfBirth(clientRegistrationDTO.getDateOfBirth())
                 .build();
 
+        Cart cart = Cart.builder().build();
+
         Client client = Client.builder()
                 .email(clientRegistrationDTO.getEmail())
                 .password(passwordEncoder.encode(clientRegistrationDTO.getPassword()))
                 .role(UserRole.ROLE_CLIENT)
                 .isArtist(false)
                 .profile(profile)
+                .cart(cart)
                 .build();
 
         profile.setClient(client);
+        cart.setClient(client);
         clientRepository.save(client);
     }
 

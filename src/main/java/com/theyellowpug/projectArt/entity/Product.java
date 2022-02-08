@@ -30,6 +30,8 @@ public class Product {
 
     private String description;
 
+    private Boolean isInCart;
+
     @JsonBackReference
     @ToString.Exclude
     @ManyToOne()

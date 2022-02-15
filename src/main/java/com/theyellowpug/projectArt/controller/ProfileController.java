@@ -54,4 +54,11 @@ public class ProfileController {
     ){
         return profileService.getProfilePic(id);
     }
+
+    @GetMapping("hasProfilePic")
+    public ResponseEntity<Object> hasProfilePic(
+            @RequestParam("id") Long id
+    ){
+        return profileService.hasProfilePic(id);
+    }
 }

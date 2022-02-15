@@ -85,7 +85,7 @@ public class ProfileService {
         try {
             File file = new File("/profilePics/" + id + ".jpg");
             byte[] imgBytes = Files.readAllBytes(file.toPath());
-            String base64imgData = Base64.getEncoder().encodeToString(imgBytes);
+            //String base64imgData = Base64.getEncoder().encodeToString(imgBytes);
             //InputStreamResource resource = new InputStreamResource(new FileInputStream(file)); // returning as resource is optimal for file downloads but not showing img in browser!
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
@@ -93,10 +93,20 @@ public class ProfileService {
             headers.add("Pragma", "no-cache");
             headers.add("Expires", "0");
 
-            ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.parseMediaType("image/jpeg")).body(base64imgData);
+            ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.parseMediaType("image/jpeg")).body(imgBytes);
             return responseEntity;
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Object> hasProfilePic(Long id){
+        try{
+            File file = new File("/profilePics/" + id + ".jpg");
+            byte[] imgBytes = Files.readAllBytes(file.toPath());
+            return ResponseEntity.ok("File found!");
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("File not found!");
         }
     }
 }

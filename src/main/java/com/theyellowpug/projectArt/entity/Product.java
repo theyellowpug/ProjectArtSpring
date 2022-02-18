@@ -30,6 +30,9 @@ public class Product {
 
     private String description;
 
+    // If product has two pictures: "name0.jpg;name1.jpg"
+    private String images;
+
     @JsonBackReference
     @ToString.Exclude
     @ManyToOne()

@@ -5,18 +5,13 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.theyellowpug.projectArt.entity.Product;
-import com.theyellowpug.projectArt.entity.Transaction;
 import com.theyellowpug.projectArt.model.CreatePaymentResponse;
 import com.theyellowpug.projectArt.model.PaymentData;
 import com.theyellowpug.projectArt.repository.ProductRepository;
-import com.theyellowpug.projectArt.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -26,13 +21,12 @@ public class PaymentService {
     private final long HUF_TO_FILLER = 100L;
 
     private final ProductRepository productRepository;
-    private final TransactionService transactionService;
-    private final TransactionRepository transactionRepository;
+    private final CartService cartService;
 
     public CreatePaymentResponse createPaymentIntent(PaymentData paymentData) throws StripeException {
         Stripe.apiKey = "sk_test_51JUq7hLJBL520A9GyU0RJGFoKokympIiTORgnuSOD62yECu7b5YguuDF4N0B01GCdDfXLGvhONfIxOln7cFJZUpM004CM0eUTh";
 
-        Long price = calculatePriceOfProducts(paymentData.getProductIds());
+        Long price = calculatePriceOfProducts(cartService.getCartByClientId(paymentData.getCustomerId()).getProductIds());
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("huf")
@@ -52,20 +46,4 @@ public class PaymentService {
         return sum;
     }
 
-    public CreatePaymentResponse createPaymentIntentWithUserId(PaymentData paymentData, Long customerId) throws StripeException {
-        paymentData.getProductIds()
-                .forEach(currentId -> {
-                            Product currentProduct = productRepository.findById(currentId).orElseThrow(EntityNotFoundException::new);
-                            Transaction transaction = Transaction.builder()
-                                    .customerId(customerId)
-                                    .artistId(currentProduct.getClient().getId())
-                                    .productId(currentProduct.getId())
-                                    .amount(currentProduct.getPrice())
-                                    .date(new Date(System.currentTimeMillis()))
-                                    .build();
-                            transactionRepository.save(transaction);
-                        }
-                );
-        return createPaymentIntent(paymentData);
-    }
 }

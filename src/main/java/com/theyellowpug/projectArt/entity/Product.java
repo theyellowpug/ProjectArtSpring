@@ -31,6 +31,8 @@ public class Product {
     private String description;
 
     private Boolean isInCart;
+    // If product has two pictures: "name0.jpg;name1.jpg"
+    private String images;
 
     @JsonBackReference
     @ToString.Exclude

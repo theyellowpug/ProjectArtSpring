@@ -1,6 +1,6 @@
 package com.theyellowpug.projectArt.service;
 
-import com.theyellowpug.projectArt.entity.Order;
+import com.theyellowpug.projectArt.entity.Orderr;
 import com.theyellowpug.projectArt.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 public class OrderService {
     private final OrderRepository orderRepository;
 
-    public String createOrder(Order order) {
-        orderRepository.save(order);
-        return "Order: " + order + " created";
+    public void createOrder(Orderr orderr) {
+        orderRepository.save(orderr);
     }
 
 }

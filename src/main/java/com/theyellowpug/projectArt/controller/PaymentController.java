@@ -2,12 +2,13 @@ package com.theyellowpug.projectArt.controller;
 
 import com.stripe.exception.StripeException;
 import com.theyellowpug.projectArt.entity.Cart;
-import com.theyellowpug.projectArt.entity.Order;
+import com.theyellowpug.projectArt.entity.Orderr;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.entity.Transaction;
 import com.theyellowpug.projectArt.model.CreatePaymentResponse;
 import com.theyellowpug.projectArt.model.OrderStatus;
 import com.theyellowpug.projectArt.model.PaymentData;
+import com.theyellowpug.projectArt.repository.OrderRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import com.theyellowpug.projectArt.service.CartService;
 import com.theyellowpug.projectArt.service.OrderService;
@@ -28,12 +29,13 @@ public class PaymentController {
     private final TransactionService transactionService;
     private final ProductRepository productRepository;
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
 
     private final CartService cartService;
 
     @PostMapping("/create-payment-intent")
-    public CreatePaymentResponse createPaymentIntent(@RequestBody PaymentData paymentData) throws StripeException {
-        return paymentService.createPaymentIntent(paymentData);
+    public CreatePaymentResponse createPaymentIntent(@RequestParam("clientId") Long clientId) throws StripeException {
+        return paymentService.createPaymentIntent(clientId);
     }
 
     @PostMapping("/savePayment")
@@ -50,25 +52,22 @@ public class PaymentController {
                     .artistId(product.getClient().getId())
                     .productId(productId)
                     .amount(product.getPrice())
-                    .date(paymentData.getDate())
+                    //.date(paymentData.getDate())
                     .paymentIntentId(paymentData.getPaymentIntentId())
                     .status(paymentData.getPaymentIntentStatus())
                     .build();
 
-            transactionService.createTransaction(transaction);
+            Long transactionId = transactionService.createTransaction(transaction);
 //todo: if payment status nobueno dont create order.
 
-            Order order = Order.builder()
+            Orderr orderr = Orderr.builder()
                     .customerId(paymentData.getCustomerId())
                     .artistId(product.getClient().getId())
-                    .paymentIntentId(paymentData.getPaymentIntentId())
-                    .productId(productId)
-                    .amount(product.getPrice())
-                    .date(paymentData.getDate())
+                    .transactionId(transactionId)
                     .status(OrderStatus.RECEIVED)
                     .build();
 
-            orderService.createOrder(order);
+            orderService.createOrder(orderr);
         });
 
         cartService.emptyCartByClientId(paymentData.getCustomerId());

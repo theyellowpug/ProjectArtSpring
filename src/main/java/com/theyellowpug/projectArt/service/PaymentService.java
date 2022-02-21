@@ -6,7 +6,6 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.CreatePaymentResponse;
-import com.theyellowpug.projectArt.model.PaymentData;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,10 +22,10 @@ public class PaymentService {
     private final ProductRepository productRepository;
     private final CartService cartService;
 
-    public CreatePaymentResponse createPaymentIntent(PaymentData paymentData) throws StripeException {
+    public CreatePaymentResponse createPaymentIntent(Long customerId) throws StripeException {
         Stripe.apiKey = "sk_test_51JUq7hLJBL520A9GyU0RJGFoKokympIiTORgnuSOD62yECu7b5YguuDF4N0B01GCdDfXLGvhONfIxOln7cFJZUpM004CM0eUTh";
 
-        Long price = calculatePriceOfProducts(cartService.getCartByClientId(paymentData.getCustomerId()).getProductIds());
+        Long price = calculatePriceOfProducts(cartService.getCartByClientId(customerId).getProductIds());
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("huf")

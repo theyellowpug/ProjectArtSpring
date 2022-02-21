@@ -2,7 +2,6 @@ package com.theyellowpug.projectArt.controller;
 
 import com.theyellowpug.projectArt.dTO.ProfileCardDTO;
 import com.theyellowpug.projectArt.entity.Profile;
-import com.theyellowpug.projectArt.exception.ImgToDBException;
 import com.theyellowpug.projectArt.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class ProfileController {
         try {
             profileService.setProfileImage(id, file);
             return ResponseEntity.ok("Succesfully updated profile pic of ID: " + id);
-        } catch (IOException ex) { return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); }
+        } catch (IOException ex) { return new ResponseEntity<>(HttpStatus.FORBIDDEN); }
     }
 
     @GetMapping("/getProfilePic")

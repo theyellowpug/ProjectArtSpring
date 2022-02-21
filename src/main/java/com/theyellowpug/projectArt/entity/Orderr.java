@@ -9,29 +9,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Order {
+public class Orderr {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String paymentIntentId;
 
     private Long artistId;
 
     private Long customerId;
 
-    private Long amount;
-
-    private Long productId;
+    private Long transactionId;
 
     private OrderStatus status;
-
-    private Date date;
 }

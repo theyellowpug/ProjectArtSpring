@@ -3,6 +3,7 @@ package com.theyellowpug.projectArt.service;
 import com.theyellowpug.projectArt.entity.Cart;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
+import com.theyellowpug.projectArt.model.ProductStatus;
 import com.theyellowpug.projectArt.repository.CartRepository;
 import com.theyellowpug.projectArt.repository.CartHistoryRepository;
 import com.theyellowpug.projectArt.repository.ClientRepository;
@@ -38,7 +39,10 @@ public class CartService {
         cart.setProductIds(productIds);
         cart.setLastModification(LocalDateTime.now());
 
+        product.setProductStatus(ProductStatus.IN_CART);
+
         cartRepository.save(cart);
+        productRepository.save(product);
 
         return product.getName() + " added to " + client.getEmail() + "'s cart";
     }
@@ -55,6 +59,5 @@ public class CartService {
         cartHistoryRepository.save(cart);
         return "Cart: " + cart + " saved to CartHistory";
     }
-
 
 }

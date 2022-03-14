@@ -8,6 +8,7 @@ import com.theyellowpug.projectArt.entity.Transaction;
 import com.theyellowpug.projectArt.model.CreatePaymentResponse;
 import com.theyellowpug.projectArt.model.OrderStatus;
 import com.theyellowpug.projectArt.model.PaymentData;
+import com.theyellowpug.projectArt.model.ProductStatus;
 import com.theyellowpug.projectArt.repository.OrderRepository;
 import com.theyellowpug.projectArt.repository.ProductRepository;
 import com.theyellowpug.projectArt.service.CartService;
@@ -29,7 +30,6 @@ public class PaymentController {
     private final TransactionService transactionService;
     private final ProductRepository productRepository;
     private final OrderService orderService;
-    private final OrderRepository orderRepository;
 
     private final CartService cartService;
 
@@ -68,8 +68,10 @@ public class PaymentController {
                     .build();
 
             orderService.createOrder(orderr);
-        });
 
+            product.setProductStatus(ProductStatus.SOLD);
+            productRepository.save(product);
+        });
         cartService.emptyCartByClientId(paymentData.getCustomerId());
     }
 

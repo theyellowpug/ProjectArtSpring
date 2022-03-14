@@ -2,6 +2,7 @@ package com.theyellowpug.projectArt.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.theyellowpug.projectArt.model.ProductStatus;
 import com.theyellowpug.projectArt.model.ProductType;
 import lombok.*;
 
@@ -30,8 +31,11 @@ public class Product {
 
     private String description;
 
-    private Boolean isInCart;
-    // If product has two pictures: "name0.jpg;name1.jpg"
+    private ProductStatus productStatus;
+
+    /**
+     * If product has two pictures: "name0.jpg;name1.jpg"
+     */
     private String images;
 
     @JsonBackReference

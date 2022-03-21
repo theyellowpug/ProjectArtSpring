@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @AllArgsConstructor
@@ -32,6 +33,8 @@ public class Product {
     private String description;
 
     private ProductStatus productStatus;
+
+    private Long quantity;
 
     /**
      * If product has two pictures: "name0.jpg;name1.jpg"

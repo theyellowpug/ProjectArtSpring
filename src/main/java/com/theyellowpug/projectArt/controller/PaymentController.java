@@ -40,39 +40,7 @@ public class PaymentController {
 
     @PostMapping("/savePayment")
     public void savePayment(@RequestBody PaymentData paymentData) {
-        cartService.createCartHistoryByClientId(paymentData.getCustomerId());
-
-        Cart cart = cartService.getCartByClientId(paymentData.getCustomerId());
-
-        cart.getProductIds().forEach(productId -> {
-            Product product = productRepository.findById(productId).orElseThrow(EntityNotFoundException::new);
-
-            Transaction transaction = Transaction.builder()
-                    .customerId(paymentData.getCustomerId())
-                    .artistId(product.getClient().getId())
-                    .productId(productId)
-                    .amount(product.getPrice())
-                    //.date(paymentData.getDate())
-                    .paymentIntentId(paymentData.getPaymentIntentId())
-                    .status(paymentData.getPaymentIntentStatus())
-                    .build();
-
-            Long transactionId = transactionService.createTransaction(transaction);
-//todo: if payment status nobueno dont create order.
-
-            Orderr orderr = Orderr.builder()
-                    .customerId(paymentData.getCustomerId())
-                    .artistId(product.getClient().getId())
-                    .transactionId(transactionId)
-                    .status(OrderStatus.RECEIVED)
-                    .build();
-
-            orderService.createOrder(orderr);
-
-            product.setProductStatus(ProductStatus.SOLD);
-            productRepository.save(product);
-        });
-        cartService.emptyCartByClientId(paymentData.getCustomerId());
+        paymentService.savePayment(paymentData);
     }
 
 }

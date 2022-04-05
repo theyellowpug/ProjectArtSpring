@@ -25,7 +25,7 @@ public class DataInitService implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-
+/*
         productTagRepository.saveAndFlush(ProductTag.builder().name("aaaa").build());
         productTagRepository.saveAndFlush(ProductTag.builder().name("abab").build());
         productTagRepository.saveAndFlush(ProductTag.builder().name("abba").build());
@@ -55,7 +55,7 @@ public class DataInitService implements CommandLineRunner {
                 .price(2500L)
                 .description("description of test product1")
                 .productTags(productTagList)
-              //  .isInCart(false)
+                .isInCart(false)
                 .build();
 
         Product product2 = Product.builder()
@@ -64,7 +64,7 @@ public class DataInitService implements CommandLineRunner {
                 .price(10000L)
                 .description("description of test product2")
                 .productTags(productTagList2)
-              //  .isInCart(false)
+                .isInCart(false)
                 .build();
 
         Product product3 = Product.builder()
@@ -73,7 +73,7 @@ public class DataInitService implements CommandLineRunner {
                 .price(23990L)
                 .description("description of test service")
                 .productTags(productTagList2)
-                //.isInCart(false)
+                .isInCart(false)
                 .build();
 
         productListOfBarna.add(product1);
@@ -133,6 +133,6 @@ public class DataInitService implements CommandLineRunner {
 
         clientRepository.save(barnaHoll);
         clientRepository.save(client);
-
+*/
     }
 }

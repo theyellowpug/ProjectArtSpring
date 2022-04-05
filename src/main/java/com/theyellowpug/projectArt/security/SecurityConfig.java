@@ -43,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/static/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/client/refreshToken").permitAll()
                 .antMatchers(HttpMethod.GET, "/cart/**").permitAll()

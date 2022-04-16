@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin()
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/client")
@@ -72,7 +72,6 @@ public class ClientController {
     public void deleteClientById(@RequestParam("id") Long id) {
         clientService.deleteClientById(id);
     }
-
 
     @GetMapping("/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

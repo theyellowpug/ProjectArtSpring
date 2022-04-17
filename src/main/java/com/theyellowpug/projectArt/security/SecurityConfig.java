@@ -68,6 +68,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/transaction/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/transaction/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/order/**").permitAll()
+                // REACT PAGES
+                .antMatchers("/newsFeed**").permitAll()
+                .antMatchers("/products**").permitAll()
+                .antMatchers("/productDetails**").permitAll()
+                .antMatchers("/services**").permitAll()
+                .antMatchers("/cart**").permitAll()
+                .antMatchers("/checkout**").permitAll()
+                .antMatchers("/profile**").permitAll()
+                .antMatchers("/login**").permitAll()
+                .antMatchers("/register**").permitAll()
+                .antMatchers("/article**").permitAll()
+                .antMatchers("/creators**").permitAll()
+                .antMatchers("/upload**").permitAll()
+                .antMatchers("/creatorHQ**").permitAll()
+                .antMatchers("/addProduct**").permitAll()
+                .antMatchers("/edit**").permitAll()
+                .antMatchers("/orders**").permitAll()
+                .antMatchers("/transactionHistory**").permitAll()
+                // --
                 .antMatchers("/v2/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",

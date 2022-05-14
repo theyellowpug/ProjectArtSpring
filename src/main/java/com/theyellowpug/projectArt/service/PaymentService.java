@@ -52,7 +52,7 @@ public class PaymentService {
 
             Transaction transaction = Transaction.builder()
                     .customerId(paymentData.getCustomerId())
-                    .artistId(product.getClient().getId())
+                    .artistId(product.getOwner().getId())
                     .productId(productId)
                     .amount(product.getPrice())
                     //.date(paymentData.getDate())
@@ -67,7 +67,7 @@ public class PaymentService {
             }*/
             Orderr orderr = Orderr.builder()
                     .customerId(paymentData.getCustomerId())
-                    .artistId(product.getClient().getId())
+                    .artistId(product.getOwner().getId())
                     .transactionId(transactionId)
                     .status(OrderStatus.RECEIVED)
                     .build();

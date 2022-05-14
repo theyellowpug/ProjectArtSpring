@@ -12,9 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +30,7 @@ public class DataInitService implements CommandLineRunner {
         productTagRepository.saveAndFlush(ProductTag.builder().name("Abstract").build());
 
         List<Product> productListOfAdmin = new ArrayList<>();
+        Set<Product> wishList = new HashSet<>();
         List<Comment> commentListOfAdmin = new ArrayList<>();
         List<ProductTag> productTagList = new ArrayList<>();
         List<ProductTag> productTagList2 = new ArrayList<>();
@@ -97,6 +96,7 @@ public class DataInitService implements CommandLineRunner {
                 .isArtist(true)
                 .comments(commentListOfAdmin)
                 .products(productListOfAdmin)
+                .wishList(wishList)
                 .build();
 
         profileToAdmin.setClient(admin);

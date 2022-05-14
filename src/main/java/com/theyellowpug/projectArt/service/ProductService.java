@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.service;
 
+import com.theyellowpug.projectArt.dTO.ProductDTO;
 import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
@@ -30,8 +31,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public ProductDTO getProductById(Long id) {
+        return createProductDTOFromProductById(id);
     }
 
     public List<Product> getAllProductsByClientId(Long id) {
@@ -52,7 +53,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(product.getPrice())
                 .description(product.getDescription())
-                .client(clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new))
+                .owner(clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new))
                 .build();
 
         List<Product> products = client.getProducts();
@@ -78,5 +79,24 @@ public class ProductService {
 
     public List<Product> getAllByProductTypeAndNameContains(ProductType productType, String name) {
         return productRepository.findAllByProductTypeAndNameContains(productType, name);
+    }
+
+    private ProductDTO createProductDTOFromProductById(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Long ownerId = product.getOwner().getId();
+
+        return ProductDTO.builder()
+                .id(product.getId())
+                .ownerId(ownerId)
+                .productType(product.getProductType())
+                .name(product.getName())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .productStatus(product.getProductStatus())
+                .quantity(product.getQuantity())
+                .images(product.getImages())
+                .comments(product.getComments())
+                .productTags(product.getProductTags())
+                .build();
     }
 }

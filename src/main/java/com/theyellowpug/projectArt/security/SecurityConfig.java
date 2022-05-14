@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/transaction/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/transaction/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/order/**").permitAll()
+                .antMatchers("/wishlist/**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",

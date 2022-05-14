@@ -8,7 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -44,7 +44,12 @@ public class Product {
     @JsonBackReference
     @ToString.Exclude
     @ManyToOne()
-    private Client client;
+    private Client owner;
+
+    @JsonBackReference
+    @ToString.Exclude
+    @ManyToMany()
+    private Set<Client> customers;
 
     @JsonManagedReference
     @ToString.Exclude

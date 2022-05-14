@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
+import com.theyellowpug.projectArt.dTO.ProductDTO;
 import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.ProductModel;
@@ -25,7 +26,7 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Product> getProductById(@RequestParam("id") Long id) {
+    public ResponseEntity<ProductDTO> getProductById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 

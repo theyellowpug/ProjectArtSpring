@@ -43,8 +43,14 @@ public class Client {
     @JsonBackReference
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Product> products;
+
+    @JsonBackReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "customers", cascade = CascadeType.ALL)
+    private Set<Product> wishList;
 
     @JsonBackReference
     @ToString.Exclude
@@ -57,5 +63,4 @@ public class Client {
     @EqualsAndHashCode.Exclude
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Cart cart;
-
 }

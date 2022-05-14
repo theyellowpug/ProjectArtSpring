@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,14 +36,16 @@ public class ProductService {
         return createProductDTOFromProductById(id);
     }
 
-    public List<Product> getAllProductsByClientId(Long id) {
+    public List<ProductDTO> getAllProductsByClientId(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return client.getProducts();
+        return client.getProducts().stream().map(product -> createProductDTOFromProductById(product.getId())).collect(Collectors.toList());
     }
 
-    public List<Product> getProductsByProductType(ProductType productType, Long numberOfPages, Long numberOfProducts) {
+    public List<ProductDTO> getProductsByProductType(ProductType productType, Long numberOfPages, Long numberOfProducts) {
         Pageable pageable = PageRequest.of(numberOfPages.intValue(), numberOfProducts.intValue());
-        return productRepository.findAllByProductType(productType, pageable);
+        List<Product> products = productRepository.findAllByProductType(productType, pageable);
+
+        return products.stream().map(product -> createProductDTOFromProductById(product.getId())).collect(Collectors.toList());
     }
 
     public String createProduct(Long clientId, ProductModel product) {

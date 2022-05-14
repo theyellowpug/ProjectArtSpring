@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
+import com.theyellowpug.projectArt.dTO.ProductDTO;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.service.CartService;
 import com.theyellowpug.projectArt.service.ProductService;
@@ -24,8 +25,8 @@ public class CartController {
     }
 
     @GetMapping("/productsByClientId")
-    public ResponseEntity<List<Product>> getProductsByClientId(@RequestParam("clientId") Long clientId) {
-        List<Product> products = cartService.getCartByClientId(clientId).getProductIds().stream().map(id -> productService.getProductById(id)).collect(Collectors.toList());
+    public ResponseEntity<List<ProductDTO>> getProductsByClientId(@RequestParam("clientId") Long clientId) {
+        List<ProductDTO> products = cartService.getCartByClientId(clientId).getProductIds().stream().map(productService::getProductById).collect(Collectors.toList());
         return ResponseEntity.ok(products);
     }
 

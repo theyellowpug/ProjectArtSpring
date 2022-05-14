@@ -31,14 +31,14 @@ public class ProductController {
     }
 
     @GetMapping("/allByClientId")
-    public ResponseEntity<List<Product>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
+    public ResponseEntity<List<ProductDTO>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
         return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
     }
 
     @GetMapping("/byProductType")
-    public ResponseEntity<List<Product>> getProductsByProductType(@RequestParam("productType") ProductType productType,
-                                                                  @RequestParam("numberOfPages") Long numberOfPages,
-                                                                  @RequestParam("numberOfProducts") Long numberOfProducts
+    public ResponseEntity<List<ProductDTO>> getProductsByProductType(@RequestParam("productType") ProductType productType,
+                                                                     @RequestParam("numberOfPages") Long numberOfPages,
+                                                                     @RequestParam("numberOfProducts") Long numberOfProducts
     ) {
         return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
     }

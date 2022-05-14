@@ -47,6 +47,7 @@ public class DataInitService implements CommandLineRunner {
                 .description("Description of unique product")
                 .productTags(productTagList)
                 .productStatus(ProductStatus.AVAILABLE)
+                .quantity(1L)
                 .build();
 
         Product product2 = Product.builder()
@@ -66,6 +67,7 @@ public class DataInitService implements CommandLineRunner {
                 .description("Description of unlimited test product")
                 .productTags(productTagList)
                 .productStatus(ProductStatus.UNLIMITED)
+                .quantity(-1L)
                 .build();
 
         productListOfAdmin.add(product1);
@@ -99,9 +101,12 @@ public class DataInitService implements CommandLineRunner {
                 .wishList(wishList)
                 .build();
 
+        product1.setOwner(admin);
+        product2.setOwner(admin);
+        product3.setOwner(admin);
+
         profileToAdmin.setClient(admin);
 
         clientRepository.save(admin);
-
     }
 }

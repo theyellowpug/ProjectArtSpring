@@ -20,6 +20,7 @@ public class Transaction {
     @GeneratedValue
     private Long id;
 
+
     private String paymentIntentId;
 
     private Long artistId;

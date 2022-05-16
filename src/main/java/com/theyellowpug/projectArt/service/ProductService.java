@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.service;
 
+import com.theyellowpug.projectArt.dTO.ProductDTO;
 import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Product;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,18 +32,20 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public ProductDTO getProductById(Long id) {
+        return createProductDTOFromProductById(id);
     }
 
-    public List<Product> getAllProductsByClientId(Long id) {
+    public List<ProductDTO> getAllProductsByClientId(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return client.getProducts();
+        return client.getProducts().stream().map(product -> createProductDTOFromProductById(product.getId())).collect(Collectors.toList());
     }
 
-    public List<Product> getProductsByProductType(ProductType productType, Long numberOfPages, Long numberOfProducts) {
+    public List<ProductDTO> getProductsByProductType(ProductType productType, Long numberOfPages, Long numberOfProducts) {
         Pageable pageable = PageRequest.of(numberOfPages.intValue(), numberOfProducts.intValue());
-        return productRepository.findAllByProductType(productType, pageable);
+        List<Product> products = productRepository.findAllByProductType(productType, pageable);
+
+        return products.stream().map(product -> createProductDTOFromProductById(product.getId())).collect(Collectors.toList());
     }
 
     public String createProduct(Long clientId, ProductModel product) {
@@ -52,7 +56,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(product.getPrice())
                 .description(product.getDescription())
-                .client(clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new))
+                .owner(clientRepository.findById(clientId).orElseThrow(EntityNotFoundException::new))
                 .build();
 
         List<Product> products = client.getProducts();
@@ -78,5 +82,24 @@ public class ProductService {
 
     public List<Product> getAllByProductTypeAndNameContains(ProductType productType, String name) {
         return productRepository.findAllByProductTypeAndNameContains(productType, name);
+    }
+
+    private ProductDTO createProductDTOFromProductById(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Long ownerId = product.getOwner().getId();
+
+        return ProductDTO.builder()
+                .id(product.getId())
+                .ownerId(ownerId)
+                .productType(product.getProductType())
+                .name(product.getName())
+                .price(product.getPrice())
+                .description(product.getDescription())
+                .productStatus(product.getProductStatus())
+                .quantity(product.getQuantity())
+                .images(product.getImages())
+                .comments(product.getComments())
+                .productTags(product.getProductTags())
+                .build();
     }
 }

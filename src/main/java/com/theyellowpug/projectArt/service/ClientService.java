@@ -1,13 +1,13 @@
 package com.theyellowpug.projectArt.service;
 
+import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
+import com.theyellowpug.projectArt.entity.Cart;
 import com.theyellowpug.projectArt.entity.Client;
 import com.theyellowpug.projectArt.entity.Profile;
-import com.theyellowpug.projectArt.dTO.ClientRegistrationDTO;
 import com.theyellowpug.projectArt.model.UserRole;
 import com.theyellowpug.projectArt.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,15 +71,19 @@ public class ClientService implements UserDetailsService {
                 .dateOfBirth(clientRegistrationDTO.getDateOfBirth())
                 .build();
 
+        Cart cart = Cart.builder().build();
+
         Client client = Client.builder()
                 .email(clientRegistrationDTO.getEmail())
                 .password(passwordEncoder.encode(clientRegistrationDTO.getPassword()))
                 .role(UserRole.ROLE_CLIENT)
                 .isArtist(false)
                 .profile(profile)
+                .cart(cart)
                 .build();
 
         profile.setClient(client);
+        cart.setClient(client);
         clientRepository.save(client);
     }
 

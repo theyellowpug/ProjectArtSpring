@@ -17,7 +17,8 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @GetMapping("/")
-    public ResponseEntity<Transaction> getTransactionById(@RequestParam("id") Long id){
+
+    public ResponseEntity<Transaction> getTransactionById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(transactionService.getTransactionById(id));
     }
 
@@ -33,6 +34,6 @@ public class TransactionController {
 
     @PostMapping("/")
     public ResponseEntity<String> createTransaction(@RequestBody Transaction transaction) {
-        return ResponseEntity.ok(transactionService.createTransaction(transaction));
+        return ResponseEntity.ok("Transaction created with id:" + transactionService.createTransaction(transaction));
     }
 }

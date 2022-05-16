@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.controller;
 
+import com.theyellowpug.projectArt.dTO.ProductDTO;
 import com.theyellowpug.projectArt.dTO.ProductTagNamesDTO;
 import com.theyellowpug.projectArt.entity.Product;
 import com.theyellowpug.projectArt.model.ProductModel;
@@ -25,19 +26,19 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Product> getProductById(@RequestParam("id") Long id) {
+    public ResponseEntity<ProductDTO> getProductById(@RequestParam("id") Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @GetMapping("/allByClientId")
-    public ResponseEntity<List<Product>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
+    public ResponseEntity<List<ProductDTO>> getAllProductsByClientId(@RequestParam("clientId") Long clientId) {
         return ResponseEntity.ok(productService.getAllProductsByClientId(clientId));
     }
 
     @GetMapping("/byProductType")
-    public ResponseEntity<List<Product>> getProductsByProductType(@RequestParam("productType") ProductType productType,
-                                                                  @RequestParam("numberOfPages") Long numberOfPages,
-                                                                  @RequestParam("numberOfProducts") Long numberOfProducts
+    public ResponseEntity<List<ProductDTO>> getProductsByProductType(@RequestParam("productType") ProductType productType,
+                                                                     @RequestParam("numberOfPages") Long numberOfPages,
+                                                                     @RequestParam("numberOfProducts") Long numberOfProducts
     ) {
         return ResponseEntity.ok(productService.getProductsByProductType(productType, numberOfPages, numberOfProducts));
     }

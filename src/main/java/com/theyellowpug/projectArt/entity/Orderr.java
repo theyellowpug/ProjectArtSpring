@@ -1,5 +1,6 @@
 package com.theyellowpug.projectArt.entity;
 
+import com.theyellowpug.projectArt.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,30 +9,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Transaction {
+public class Orderr {
     @Id
     @GeneratedValue
     private Long id;
-
-
-    private String paymentIntentId;
 
     private Long artistId;
 
     private Long customerId;
 
-    private Long amount;
+    private Long transactionId;
 
-    private String status;
-
-    private Long productId;
-
-    private Date date;
+    private OrderStatus status;
 }

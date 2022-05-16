@@ -4,11 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class PaymentData {
-    private List<Long> productIds;
+    private Long customerId;
+
+    private String paymentIntentId;
+
+    private String paymentIntentStatus;
+
+    private Date date;
 }

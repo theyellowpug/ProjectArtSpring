@@ -4,34 +4,27 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Profile {
+public class Cart {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String firstname;
-
-    private String lastname;
-
-    private String nickname;
-
-    private Date dateOfBirth;
-
-    private String title;
-
-    private String shortDescription;
-
-    private String longDescription;
 
     @JsonBackReference
     @ToString.Exclude
     @OneToOne()
     private Client client;
+
+    @ElementCollection
+    @Singular
+    private List<Long> productIds;
+
+    private LocalDateTime lastModification;
 }

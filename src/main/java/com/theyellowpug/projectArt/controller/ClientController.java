@@ -49,7 +49,7 @@ public class ClientController {
     }
 
     @GetMapping("/isArtist")
-    public ResponseEntity<Boolean> getIfClientIsArtist(@RequestParam("id") Long id){
+    public ResponseEntity<Boolean> getIfClientIsArtist(@RequestParam("id") Long id) {
         return ResponseEntity.ok(clientService.getIfClientIsArtist(id));
     }
 

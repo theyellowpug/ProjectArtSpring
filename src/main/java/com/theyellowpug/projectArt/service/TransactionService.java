@@ -14,9 +14,9 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    public String createTransaction(Transaction transaction) {
+    public Long createTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
-        return "Transaction: " + transaction + " successfully created";
+        return transactionRepository.findByPaymentIntentId(transaction.getPaymentIntentId()).orElseThrow(EntityNotFoundException::new).getId();
     }
 
     public List<Transaction> getAllTransactionsByCustomerId(Long customerId) {
